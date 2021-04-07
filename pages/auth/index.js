@@ -1,4 +1,4 @@
-import Link from "next/Link"
+import Link from "next/link"
 import { useState } from "react"
 import { InputEmail, InputPassword, BtnSubmit } from "../../components/app"
 import { checkPassword } from "../../functions/verification"
