@@ -30,8 +30,6 @@ export default function Register() {
     return (
         <>
             <Head>
-                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-
             </Head>
             <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
                 <div className="md:w-6/12 w-full px-2 py-12 m-auto bg-white rounded-md shadow-md ">
