@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Layout from "../../components/Dashboard/Layaout"
 export default function Dashboard() {
-  location.href ='/auth'
   return (
     <>
       <Layout selectNav='dashboard'>

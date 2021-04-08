@@ -1,5 +1,9 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
 export default function Home() {
+  useEffect(()=>{
+    location.href="/auth"
+  })
   return (
     <>
       <style>@import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);</style>
