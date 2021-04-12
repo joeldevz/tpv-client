@@ -1,10 +1,10 @@
 import Link from "next/link"
 import Head from "next/head"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { InputEmail, InputPassword, BtnSubmit } from "../../components/app"
 import { checkPassword } from "../../functions/verification"
 import { singin } from "../../functions/connectbackend"
-import { setLocalStorage } from "../../functions/index"
+import { setLocalStorage, getLocalStorage, removeLocalStorage } from "../../functions/index"
 import { errorAuth } from "../../functions/menssage"
 import { CODE_HTTP } from "../../functions/code"
 
@@ -27,6 +27,13 @@ export default function Register() {
         setLocalStorage('token', query.data)
         location.href = "/dashboard/employeer"
     }
+    useEffect(() => {
+        if (getLocalStorage('token')) {
+            removeLocalStorage('token')
+            location.href = '/dashboard/employeer'
+        }
+
+    }, [])
     return (
         <>
             <Head>

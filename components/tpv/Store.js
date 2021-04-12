@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { Modal, Btn, Icon, Btn2, InputNumber2, FullScreenDialog, AlertDialogSlide } from "../app"
+import { InputNumber2, FullScreenDialog, AlertDialogSlide } from "../app"
 import ItemShoppinCart from "./ItemShoppinCart"
 import { Paper, IconButton, InputBase, ListItem, ListItemText, Button, RadioGroup, FormControlLabel, Radio, Grid, TextField } from "@material-ui/core"
 import SearchIcon from '@material-ui/icons/Search';
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+
+
 }));
 const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => {
     const classes = useStyles();
@@ -39,6 +42,11 @@ const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => 
         setDevolution(ticket.priceAll - e.target.value)
     }
     const [Pay, setPay] = useState(false)
+    const saveTicket = (printer) => {
+        if (printer) {
+            saveandprinter()
+        }
+    }
     return (
         <>
 
@@ -111,11 +119,11 @@ const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => 
                                 No Guardar</Button>
                         </Grid>
                         <Grid item xs={12} md={4} className="w-full">
-                            <Button variant="contained" className="w-full" color="primary">
+                            <Button variant="contained" onClick={() => saveTicket()} className="w-full" color="primary">
                                 Guardar</Button>
                         </Grid>
                         <Grid item xs={12} md={4} className="w-full">
-                            <Button onClick={() => saveandprinter()} variant="contained" className="w-full" color="primary">
+                            <Button onClick={() => saveTicket(true)} variant="contained" className="w-full" color="primary">
                                 Guardar e Imprimir </Button>
                         </Grid>
                     </Grid>

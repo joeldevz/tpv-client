@@ -6,6 +6,8 @@ export default function Nav({ selectNav }) {
     const [nav, setNav] = useState({
         dashboard: false,
         tpv: false,
+        client: false,
+        products:false
 
     })
     useEffect(() => {
@@ -37,7 +39,22 @@ export default function Nav({ selectNav }) {
                     </a>
                 </Link>
             </li>
-
+            <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.client ? 'text-blue-600' : 'hover:text-blue-600'}`}>
+                <Link href="/dashboard/client">
+                    <a className=" flex flex-col items-center">
+                        <Icon icon="people" />
+                        <span className="text-xs mt-2">Clientes</span>
+                    </a>
+                </Link>
+            </li>
+            <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.products ? 'text-blue-600' : 'hover:text-blue-600'}`}>
+                <Link href="/dashboard/products">
+                    <a className=" flex flex-col items-center">
+                        <Icon icon="cartPlus" />
+                        <span className="text-xs mt-2">Productos</span>
+                    </a>
+                </Link>
+            </li>
 
             <li className="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300 rounded-lg" >
                 <Link href="/config">
@@ -47,6 +64,7 @@ export default function Nav({ selectNav }) {
                     </a>
                 </Link>
             </li>
+
         </ul>
 
         <div

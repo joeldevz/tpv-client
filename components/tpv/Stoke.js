@@ -1,10 +1,23 @@
 import { CardCategory, InputText, InputNumber, Select, BtnSubmit } from "../app"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AddProduct } from "../Form"
 import { TextField } from "@material-ui/core"
+import { GetAllProductShop } from "../../functions/connectbackend"
+import ItemShoppin from "../../components/tpv/ItemShoppin"
+import { CODE_HTTP } from "../../functions/code"
 
 const Stoke = ({ setProducts, products }) => {
-
+    const [Listproducts, setListproducts] = useState([])
+    useEffect(async () => {
+        const allProducts = await GetAllProductShop()
+        if (allProducts.statusCode === CODE_HTTP.SUCCESS) {
+            setListproducts(allProducts.data)
+        }
+    },[])
+    const addProduct = (data) => {
+        data.key = products.length
+        setProducts([...products, data])
+    }
 
     return (
         <>
@@ -13,18 +26,22 @@ const Stoke = ({ setProducts, products }) => {
                 <button class="py-3 px-4 bg-gray-900 text-gray-100 font-semibold uppercase hover:bg-gray-600">Buscar</button>
             </div>
             <div className="overflow-auto my-5" style={{ height: 75 + '%' }}>
-                <div class="p-5 m-auto  grid grid-cols-1 md:grid-cols-3  xl:grid-cols-4 gap-3 overflow-auto">
-                    <CardCategory name="DESCUENTOS" img="/category/descounts.png" />
-                    <CardCategory name="hola" img="category/category.png" />
-                    <CardCategory name="hola" img="category/category.png" />
-                    <CardCategory name="hola" img="category/category.png" />
+                {/*<div class="p-5 m-auto  grid grid-cols-1 md:grid-cols-3  xl:grid-cols-4 gap-3 overflow-auto">
+                    
+                        <CardCategory name="DESCUENTOS" img="/category/descounts.png" />
+                        <CardCategory name="hola" img="category/category.png" />
+                        <CardCategory name="hola" img="category/category.png" />
+                        <CardCategory name="hola" img="category/category.png" />
+                    
 
+                </div>*/}
+                <div class="m-auto  grid grid-cols-1  gap-2 overflow-y-auto p-2">
+                    <ItemShoppin Listproducts={Listproducts} setProducts={addProduct} />
                 </div>
             </div>
             <div className="grid grid-cols-12 gap-2  ">
-                <TextField type="number" id="price" label="Código" className="w-full col-span-2" variant="outlined" />
 
-                <AddProduct  products={products} setProducts={setProducts} />
+                <AddProduct products={products} setProducts={setProducts} />
 
             </div>
 

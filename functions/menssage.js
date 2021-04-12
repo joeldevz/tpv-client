@@ -9,7 +9,9 @@ const ShopError = {
     city: "Seleccione una ciudad",
     province: "Seleccione una provincia",
     cp: "Introduzca un CP valido",
-    category: "Elige una Categoria"
+    category: "Elige una Categoria",
+    description: "Escriba una breve descripción",
+    count: "Escriba una cantidad",
 }
 const CreateEmployeer = {
     pin: "Introduzca un Pin de 4 dígitos",
