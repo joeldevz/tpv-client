@@ -37,10 +37,10 @@ export default function Register() {
                             <img className="mx-auto h-20 w-auto" src="/images/icon.png" alt="Workflow" />                            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                                 Registra tu tienda</h2>
                             <p className="mt-2 text-center text-sm text-gray-600">
-                                <p className="font-medium text-blue-600 hover:text-blue-500"> y obten 1 mes gratis</p>
+                                <p className="font-medium text-blue-600 hover:text-blue-500"> y obtén 1 mes gratis</p>
                                 <br />
                                 <Link href="/auth">
-                                    <a className="font-medium text-blue-600 hover:text-blue-500 mt-5">Si tienes cuenta Inicia Sesion</a>
+                                    <a className="font-medium text-blue-600 hover:text-blue-500 mt-5">Si tienes cuenta Inicia Sesión</a>
                                 </Link>
                             </p>
                         </div>

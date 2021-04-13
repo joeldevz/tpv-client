@@ -4,7 +4,7 @@ import Stoke from "../../components/tpv/Stoke"
 import { Grid, Paper } from '@material-ui/core'
 import Layout from "../../components/Dashboard/Layaout"
 import { useState, useEffect } from "react"
-import { printer, AddTicket } from "../../functions/connectbackend"
+import { Sendprinter, AddTicket } from "../../functions/connectbackend"
 import { KeyPress } from "../../functions"
 import { CODE_HTTP } from "../../functions/code"
 export default function TPV() {
@@ -66,7 +66,7 @@ export default function TPV() {
     })
     setPay(false)
     if (printer) {
-      const print = printer(ticket)
+      const print = await Sendprinter(query.data)
       console.log('imprimiendo')
     }
   }

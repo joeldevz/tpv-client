@@ -23,7 +23,7 @@ export const singin = async (body) => {
 export const singup = async (body) => {
     return fetch(`${URI}/singup`,
         {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             headers: {
                 'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export const LoginEmployer = async (body) => {
 export const getStatics = () => {
 
 }
-export const printer = async (params) => {
+export const Sendprinter = async (params) => {
     let iva21 = 0;
     let iva10 = 0;
     let iva4 = 0;
@@ -116,17 +116,17 @@ export const printer = async (params) => {
     }
     let option = {
         business: {
-            name: 'TOODU',
+            name: 'Tecnoservices',
             logo: '',
-            url: "https://toodu.com",
+            url: "https://tecnoservices.es",
             info: [
-                { text: "Calle rio guadarrama", align: "CENTER", width: 1, bold: true },
-                { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true },
-                { text: `FECHA: ${Date.now()}`, align: "CENTER", width: 1, bold: true },
-                { text: `Atendido ${params.employee}`, align: "CENTER", width: 1, bold: true },
+                { text: "Gerardo Diego,8 local 8, 28806 Alcalá de Henares", align: "CENTER", width: 1, bold: true },
+               /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
+                { text: `FECHA: ${new Date}`, align: "CENTER", width: 1, bold: true },
+                { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: true },
             ],
         },
-        NTicket: 'Nº 120',
+        NTicket: `Nº Ticket ${params.Nticket}`,
         products: [],
         price: [],
         printer: {
@@ -138,13 +138,12 @@ export const printer = async (params) => {
         let labelname;
         if (!product.label) {
             labelname = product.title
-            if (product.title.length > 18) {
+            if (product.name.length > 18) {
                 labelname = product.title.slice(0, 18) + '..'
             }
         } else {
             labelname = product.label
         }
-        console.log("letras", product.title.length)
 
         //"ORDENADOR MSI ..."
         option.products.push({ text: product.count, align: "LEFT", width: 0.125 },
@@ -186,7 +185,7 @@ export const printer = async (params) => {
         )
     }
     endTicket()
-
+    console.log(option)
     return fetch(`http://localhost:4000/printer`,
         {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -269,7 +268,7 @@ export const GetProductShop = async (code) => {
 }
 export const AddProductShop = async (params) => {
     const template = {
-        id_Shop: 'D20211',
+        id_Shop: getLocalStorage('id_Shop'),
         ...params
     }
     return fetch(`${URI}/product/create`,
