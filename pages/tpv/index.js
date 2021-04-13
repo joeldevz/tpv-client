@@ -46,9 +46,9 @@ export default function TPV() {
     }
     alert("Compra Realizada")
           console.log(ticket)
-
+  console.log(query.data)
     if (printer) {
-      const print = await Sendprinter(ticket)
+      const print = await Sendprinter(query.data)
       console.log(print)
       console.log('imprimiendo')
     }
