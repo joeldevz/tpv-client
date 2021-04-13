@@ -45,6 +45,8 @@ export default function TPV() {
       return alert('No hay sufiente Stock')
     }
     alert("Compra Realizada")
+          console.log(ticket)
+
     if (printer) {
       const print = await Sendprinter(ticket)
       console.log(print)
