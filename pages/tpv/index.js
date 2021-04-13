@@ -66,7 +66,8 @@ export default function TPV() {
     })
     setPay(false)
     if (printer) {
-      const print = await Sendprinter(query.data)
+      const print = await Sendprinter(ticket)
+      console.log(print)
       console.log('imprimiendo')
     }
   }
