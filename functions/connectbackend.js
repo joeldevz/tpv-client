@@ -133,8 +133,8 @@ export const Sendprinter = async (params) => {
                 { text: "Gerardo Diego,8 local 8,", align: "CENTER", width: 1, bold: false },
                 { text: "28806 Alcalá de Henares", align: "CENTER", width: 1, bold:false },
                /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
-                { text: `FECHA: ${formatoFecha(new Date, 'dd/mm/yyyy')}`, align: "CENTER", width: 1, bold: true },
-                { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: true },
+                { text: `FECHA: ${formatoFecha(new Date, 'dd/mm/yyyy')}`, align: "CENTER", width: 1, bold: false },
+                { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: false },
             ],
         },
         NTicket: `Nº Ticket ${params.Nticket}`,
