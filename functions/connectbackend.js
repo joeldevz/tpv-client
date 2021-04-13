@@ -115,15 +115,25 @@ export const Sendprinter = async (params) => {
         '10': setIva10,
         '4': setIva4
     }
+    function formatoFecha(fecha, formato) {
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
+}
     let option = {
         business: {
-            name: 'Tecnoservices',
+            name: 'TECNOSERVICES',
             logo: '',
             url: "https://tecnoservices.es",
             info: [
-                { text: "Gerardo Diego,8 local 8, 28806 Alcalá de Henares", align: "CENTER", width: 1, bold: true },
+                { text: "Gerardo Diego,8 local 8,", align: "CENTER", width: 1, bold: false },
+                { text: "28806 Alcalá de Henares", align: "CENTER", width: 1, bold:false },
                /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
-                { text: `FECHA: ${new Date}`, align: "CENTER", width: 1, bold: true },
+                { text: `FECHA: ${formatoFecha(new Date, 'dd/mm/yyyy')}`, align: "CENTER", width: 1, bold: true },
                 { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: true },
             ],
         },
@@ -186,7 +196,6 @@ export const Sendprinter = async (params) => {
         )
     }
     endTicket()
-    console.log(option)
     return fetch(`http://localhost:4000/printer`,
         {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -220,6 +229,8 @@ export const OpenBox = async () => {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
+                body: JSON.stringify(option)
+
         })
         .then((res) => res.json())
         .then((res) => {
