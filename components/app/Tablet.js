@@ -181,3 +181,60 @@ export function DataTable({ products }) {
         </div>
     );
 }
+
+export function DataTableTicket({ products }) {
+    const [rows, setRow] = useState([])
+    useEffect(async () => {
+        const allProducts = await GetAllProductShop()
+        if (allProducts.statusCode === 200) {
+            const data = allProducts.data.map((product) => (
+                {
+                    id: product.code,
+                    name: product.name,
+                    description: product.description,
+                    count: product.count,
+                    iva: product.iva,
+                    price: product.price
+                }
+            ))
+            setRow(data)
+        }
+    }, [])
+
+
+
+    const columns = [
+        { field: 'id', headerName: 'Nº Ticket', width: 230 },
+        { field: 'name', headerName: 'Nombre de Producto', width: 230 },
+        { field: 'description', headerName: 'Descripción', width: 230 },
+        {
+            field: 'price',
+            headerName: 'Precio (€)',
+            type: 'number',
+            width: 130,
+
+        },
+        {
+            field: 'iva',
+            headerName: 'IVA (%)',
+            type: 'number',
+            width: 130,
+
+        },
+        {
+            field: 'count',
+            type: 'number',
+            headerName: 'Stock',
+            description: 'Total de Productos en Tienda',
+            width: 160,
+
+        },
+    ];
+
+    console.log(rows)
+    return (
+        <div style={{ height: 550, width: '100%' }}>
+            <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection />
+        </div>
+    );
+}

@@ -63,13 +63,14 @@ export default function employeer() {
         if (loginUser.nickname.length <= 0 || loginUser.nickname === undefined) return
         if (loginUser.pin.length < 4) return
         const dataEmployer = await LoginEmployer(loginUser)
-        console.log(dataEmployer)
         if (dataEmployer.statusCode !== CODE_HTTP.SUCCESS) {
             errorAuth(401, setError)
             setPin({ code1: '', code2: '', code3: '', code4: '' })
             setLoginUser({ ...loginUser, pin: '' })
         } else {
             setLocalStorage('tokenSession', dataEmployer.data)
+            setLocalStorage('id_Shop', 'D20211')
+            setLocalStorage('User', loginUser.nickname)
             location.href = "../dashboard"
         }
     }, [loginUser])

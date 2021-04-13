@@ -44,10 +44,10 @@ export default function Register() {
                         <div>
                             <img className="mx-auto h-20 w-auto" src="/images/icon.png" alt="Workflow" />
                             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                                Inicio Sesion</h2>
+                                Inicio Sesión</h2>
                             <p className="mt-2 text-center text-sm text-gray-600">
                                 <Link href="auth/register">
-                                    <a className="font-medium text-blue-600 hover:text-blue-500"> o Registrate y obten 1 mes gratis</a></Link>
+                                    <a className="font-medium text-blue-600 hover:text-blue-500"> o Regístrate y obtén 1 mes gratis</a></Link>
                             </p>
                         </div>
                         <form className="mt-8 space-y-6" onSubmit={loggin} action="#" method="POST">

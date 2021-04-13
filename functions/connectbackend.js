@@ -230,7 +230,7 @@ export const OpenBox = async () => {
         })
 }
 export const GetAllProductShop = async () => {
-    return fetch(`${URI}/product/allByShop?id=D20211`,
+    return fetch(`${URI}/product/allByShop?id=${getLocalStorage('id_Shop')}`,
         {
             method: 'get', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -281,6 +281,57 @@ export const AddProductShop = async (params) => {
                 "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
+            },
+            body: JSON.stringify(template)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+export const AddTicket = async (params) => {
+    const template = {
+        id_Shop: getLocalStorage('id_Shop'),
+        employee: getLocalStorage('User'),
+        ...params
+    }
+    return fetch(`${URI}/ticket/create`,
+        {
+            method: 'post', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(template)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+export const GetAllTicket = async (params) => {
+    const template = {
+        id_Shop: getLocalStorage('id_Shop'),
+        employee: getLocalStorage('User'),
+        ...params
+    }
+    return fetch(`${URI}/ticket/allByShop?id=${getLocalStorage('id_Shop')}`,
+        {
+            method: 'post', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(template)
         })

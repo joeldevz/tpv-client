@@ -13,7 +13,7 @@ const Stoke = ({ setProducts, products }) => {
         if (allProducts.statusCode === CODE_HTTP.SUCCESS) {
             setListproducts(allProducts.data)
         }
-    },[])
+    },[products])
     const addProduct = (data) => {
         data.key = products.length
         setProducts([...products, data])

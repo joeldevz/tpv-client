@@ -7,7 +7,8 @@ export default function Nav({ selectNav }) {
         dashboard: false,
         tpv: false,
         client: false,
-        products:false
+        products: false,
+        ticket: false
 
     })
     useEffect(() => {
@@ -52,6 +53,14 @@ export default function Nav({ selectNav }) {
                     <a className=" flex flex-col items-center">
                         <Icon icon="cartPlus" />
                         <span className="text-xs mt-2">Productos</span>
+                    </a>
+                </Link>
+            </li>
+            <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.ticket ? 'text-blue-600' : 'hover:text-blue-600'}`}>
+                <Link href="/dashboard/ticket">
+                    <a className=" flex flex-col items-center">
+                        <Icon icon="cartPlus" />
+                        <span className="text-xs mt-2">Ticket</span>
                     </a>
                 </Link>
             </li>

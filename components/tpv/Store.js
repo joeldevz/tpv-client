@@ -5,6 +5,7 @@ import { Paper, IconButton, InputBase, ListItem, ListItemText, Button, RadioGrou
 import SearchIcon from '@material-ui/icons/Search';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { AddTicket } from "../../functions/connectbackend"
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 }));
-const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => {
+const Store = ({ products, setProducts, ticket, setTicket, saveandprinter ,Pay, setPay}) => {
     const classes = useStyles();
     const [userModal, setUserModal] = useState(false)
     const [methodPay, setMethodPay] = useState('cash')
@@ -41,12 +42,8 @@ const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => 
         setCash(e.target.value)
         setDevolution(ticket.priceAll - e.target.value)
     }
-    const [Pay, setPay] = useState(false)
-    const saveTicket = (printer) => {
-        if (printer) {
-            saveandprinter()
-        }
-    }
+    
+
     return (
         <>
 
@@ -119,11 +116,11 @@ const Store = ({ products, setProducts, ticket, setTicket, saveandprinter }) => 
                                 No Guardar</Button>
                         </Grid>
                         <Grid item xs={12} md={4} className="w-full">
-                            <Button variant="contained" onClick={() => saveTicket()} className="w-full" color="primary">
+                            <Button variant="contained" onClick={() => saveandprinter()} className="w-full" color="primary">
                                 Guardar</Button>
                         </Grid>
                         <Grid item xs={12} md={4} className="w-full">
-                            <Button onClick={() => saveTicket(true)} variant="contained" className="w-full" color="primary">
+                            <Button onClick={() => saveandprinter(true)} variant="contained" className="w-full" color="primary">
                                 Guardar e Imprimir </Button>
                         </Grid>
                     </Grid>

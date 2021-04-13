@@ -3,10 +3,10 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FormCreateProduct } from "../../components/Form"
-import { StickyHeadTable, FullScreenDialog, DataTable } from "../../components/app"
+import { StickyHeadTable, FullScreenDialog, DataTableTicket, CollapsibleTableTicket } from "../../components/app"
 import { GetAllProductShop } from "../../functions/connectbackend"
 import { useState, useEffect } from "react";
-export default function Client() {
+export default function Ticket() {
     const [products, setProducts] = useState([])
 
     const [client, newClient] = useState(false)
@@ -28,14 +28,11 @@ export default function Client() {
 
     return (
         <>
-            <Layout selectNav='products'>
+            <Layout selectNav='ticket'>
 
-                <FullScreenDialog active={client} setActive={newClient} title="Crear Producto" >
-                    <FormCreateProduct />
-                </FullScreenDialog>
                 <div className="w-full p-4 ">
 
-                    <DataTable products={products} />
+                    <CollapsibleTableTicket products={products} />
                 </div>
                 <Fab color="primary" onClick={() => newClient(true)} className={classes.fab} aria-label="add">
                     <AddIcon />
