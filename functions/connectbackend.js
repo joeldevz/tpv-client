@@ -92,6 +92,7 @@ export const getStatics = () => {
 
 }
 export const Sendprinter = async (params) => {
+    console.log(params)
     let iva21 = 0;
     let iva10 = 0;
     let iva4 = 0;
