@@ -45,6 +45,11 @@ export default function TPV() {
       return alert('No hay sufiente Stock')
     }
     alert("Compra Realizada")
+    if (printer) {
+      const print = await Sendprinter(ticket)
+      console.log(print)
+      console.log('imprimiendo')
+    }
     setProducts([
     ])
     setTicket({
@@ -65,11 +70,7 @@ export default function TPV() {
       currency: '€',
     })
     setPay(false)
-    if (printer) {
-      const print = await Sendprinter(ticket)
-      console.log(print)
-      console.log('imprimiendo')
-    }
+    
   }
 
   return (
