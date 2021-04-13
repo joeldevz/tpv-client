@@ -169,7 +169,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-21%", align: "RIGHT", width: 0.25 },
-                { text: iva21 + `€', align: "RIGHT", width: 0.25 },
+                { text: iva21 +'€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva10 > 0) {
@@ -177,7 +177,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-10%", align: "RIGHT", width: 0.25 },
-                { text: iva10 +`€', align: "RIGHT", width: 0.25 },
+                { text: iva10 +'€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva4 > 0) {
@@ -185,14 +185,14 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-4%", align: "RIGHT", width: 0.25 },
-                { text: iva4 + `€', align: "RIGHT", width: 0.25 },
+                { text: iva4 + '€', align: "RIGHT", width: 0.25 },
             )
         }
         option.price.push(
             { text: "", align: "LEFT", width: 0.25 },
             { text: "", align: "LEFT", width: 0.25 },
             { text: "TOTAL", align: "RIGHT", width: 0.25 },
-            { text: params.priceAll + params.currency, align: "RIGHT", width: 0.25 },
+            { text: params.priceAll + '€', align: "RIGHT", width: 0.25 },
         )
     }
     endTicket()
