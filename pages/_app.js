@@ -12,9 +12,9 @@ function MyApp({ Component, pageProps }) {
     time: 6000
   })
   useEffect(() => {
-    window.addEventListener('keypress', (event) => {
+    /*window.addEventListener('keypress', (event) => {
       KeyPress(event, setError)
-    }, []);
+    }, []);*/
   })
   return <>
     <Alert option={{ Alert: Error, setAlert: setError }} />
