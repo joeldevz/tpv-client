@@ -66,10 +66,6 @@ export const FullScreenDialog = ({ title, active, setActive, children }) => {
 
 export const AlertDialogSlide = ({ title, active, setActive, children }) => {
 
-    const handleClickOpen = () => {
-        setActive(true);
-    };
-
     const handleClose = () => {
         setActive(false);
     };

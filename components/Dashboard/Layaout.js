@@ -14,7 +14,7 @@ export default function Layout({ children, selectNav }) {
     }, [])
     return (
         <>
-            <div className=" w-full flex overflow-hidden select-none h-screen"  >
+            <div className=" w-full flex overflow-hidden  h-screen"  >
                 <Nav selectNav={selectNav} />
                 <main
                     className="my-2 pt-1 pb-2 mr-2 px-5 flex-1 bg-gray-50 dark:bg-black rounded-lg  border-gray-300 border-2

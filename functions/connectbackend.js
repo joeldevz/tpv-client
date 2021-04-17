@@ -121,7 +121,7 @@ export const Sendprinter = async (params) => {
             url: "https://tecnoservices.es",
             info: [
                 { text: "Gerardo Diego,8 local 8, 28806 Alcalá de Henares", align: "CENTER", width: 1, bold: true },
-               /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
+                /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
                 { text: `FECHA: ${new Date}`, align: "CENTER", width: 1, bold: true },
                 { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: true },
             ],
@@ -280,6 +280,56 @@ export const AddProductShop = async (params) => {
                 "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
+            },
+            body: JSON.stringify(template)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+export const UpdateProductShop = async (params) => {
+    const template = {
+        id_Shop: getLocalStorage('id_Shop'),
+        ...params
+    }
+    console.log(template)
+    return fetch(`${URI}/product/update`,
+        {
+            method: 'put', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(template)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+export const DeleteProductShop = async (params) => {
+    const template = {
+        id_Shop: getLocalStorage('id_Shop'),
+        ...params
+    }
+    console.log(template)
+    return fetch(`${URI}/product/remove`,
+        {
+            method: 'put', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(template)
         })
