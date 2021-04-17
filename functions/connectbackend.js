@@ -92,6 +92,7 @@ export const getStatics = () => {
 
 }
 export const Sendprinter = async (params) => {
+    console.log(params)
     let iva21 = 0;
     let iva10 = 0;
     let iva4 = 0;
@@ -114,16 +115,26 @@ export const Sendprinter = async (params) => {
         '10': setIva10,
         '4': setIva4
     }
+    function formatoFecha(fecha, formato) {
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
+}
     let option = {
         business: {
-            name: 'Tecnoservices',
+            name: 'TECNOSERVICES',
             logo: '',
             url: "https://tecnoservices.es",
             info: [
-                { text: "Gerardo Diego,8 local 8, 28806 Alcalá de Henares", align: "CENTER", width: 1, bold: true },
-                /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
-                { text: `FECHA: ${new Date}`, align: "CENTER", width: 1, bold: true },
-                { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: true },
+                { text: "Gerardo Diego,8 local 8,", align: "CENTER", width: 1, bold: false },
+                { text: "28806 Alcalá de Henares", align: "CENTER", width: 1, bold:false },
+               /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
+                { text: `FECHA: ${formatoFecha(new Date, 'dd/mm/yyyy')}`, align: "CENTER", width: 1, bold: false },
+                { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: false },
             ],
         },
         NTicket: `Nº Ticket ${params.Nticket}`,
@@ -137,8 +148,8 @@ export const Sendprinter = async (params) => {
     params.products.forEach(product => {
         let labelname;
         if (!product.label) {
-            labelname = product.title
-            if (product.name.length > 18) {
+            labelname = product.title || product.name
+            if (labelname.length > 18) {
                 labelname = product.title.slice(0, 18) + '..'
             }
         } else {
@@ -158,7 +169,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-21%", align: "RIGHT", width: 0.25 },
-                { text: iva21 + params.currency, align: "RIGHT", width: 0.25 },
+                { text: iva21 +'€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva10 > 0) {
@@ -166,7 +177,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-10%", align: "RIGHT", width: 0.25 },
-                { text: iva10 + params.currency, align: "RIGHT", width: 0.25 },
+                { text: iva10 +'€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva4 > 0) {
@@ -174,18 +185,17 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-4%", align: "RIGHT", width: 0.25 },
-                { text: iva4 + params.currency, align: "RIGHT", width: 0.25 },
+                { text: iva4 + '€', align: "RIGHT", width: 0.25 },
             )
         }
         option.price.push(
             { text: "", align: "LEFT", width: 0.25 },
             { text: "", align: "LEFT", width: 0.25 },
             { text: "TOTAL", align: "RIGHT", width: 0.25 },
-            { text: params.priceAll + params.currency, align: "RIGHT", width: 0.25 },
+            { text: params.priceAll + '€', align: "RIGHT", width: 0.25 },
         )
     }
     endTicket()
-    console.log(option)
     return fetch(`http://localhost:4000/printer`,
         {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -211,7 +221,7 @@ export const OpenBox = async () => {
             width: 48
         }
     }
-    return fetch(`http://localhost:4000/printer`,
+    return fetch(`http://localhost:4000/open`,
         {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -219,6 +229,8 @@ export const OpenBox = async () => {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
+                body: JSON.stringify(option)
+
         })
         .then((res) => res.json())
         .then((res) => {
