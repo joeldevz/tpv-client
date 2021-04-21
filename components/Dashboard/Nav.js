@@ -1,8 +1,13 @@
 import Link from 'next/link'
 import { useEffect, useState } from "react"
 import { Icon } from '../app/Icon'
-
+import { exitSession } from "../../functions/connectbackend"
+import { getLocalStorage } from "../../functions/index"
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 export default function Nav({ selectNav }) {
+
     const [nav, setNav] = useState({
         dashboard: false,
         tpv: false,
@@ -11,8 +16,10 @@ export default function Nav({ selectNav }) {
         ticket: false
 
     })
+    const [idShop, setIdShop] = useState(0)
     useEffect(() => {
         setNav({ ...nav, [selectNav]: true })
+        setIdShop(getLocalStorage('id_Shop'))
     }, [])
     return (<nav className="w-24 flex flex-col items-center bg-white dark:bg-gray-800 py-4">
 
@@ -20,6 +27,9 @@ export default function Nav({ selectNav }) {
             <Link href="/dashboard">
                 <img src="/images/icon.png" width="80" height="50" alt="logo" />
             </Link>
+            <p className="text-center text-blue-600 font-bold opacity-30">
+                {idShop}
+            </p>
         </div>
 
         <ul className="mt-2 text-gray-700 dark:text-gray-400 capitalize">
@@ -35,8 +45,8 @@ export default function Nav({ selectNav }) {
             <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.tpv ? 'text-blue-600' : 'hover:text-blue-600'}`}>
                 <Link href="/tpv">
                     <a className=" flex flex-col items-center ">
-                        <Icon icon="tpv" bg={`${nav.tpv ? 'text-blue-600' : ''}`} />
-                        <span className="text-xs mt-2">TPV</span>
+                        <StorefrontIcon  bg={`${nav.tpv ? 'text-blue-600' : ''}`}/>
+                        <span className="text-xs mt-2 font-semibold">TPV</span>
                     </a>
                 </Link>
             </li>
@@ -59,7 +69,7 @@ export default function Nav({ selectNav }) {
             <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.ticket ? 'text-blue-600' : 'hover:text-blue-600'}`}>
                 <Link href="/dashboard/ticket">
                     <a className=" flex flex-col items-center">
-                        <Icon icon="cartPlus" />
+                        <ConfirmationNumberIcon className="fill-current h-5 w-5"/>
                         <span className="text-xs mt-2">Ticket</span>
                     </a>
                 </Link>
@@ -73,7 +83,12 @@ export default function Nav({ selectNav }) {
                     </a>
                 </Link>
             </li>
-
+            <li onClick={exitSession} className="mt-3 p-2 hover:text-red-600 cursor-pointer dark-hover:text-blue-300 rounded-lg" >
+                <div className=" flex flex-col items-center">
+                    <ExitToAppIcon className="fill-current h-5 w-5" />
+                    <span className="text-xs text-center mt-2">Cambiar Usuario</span>
+                </div>
+            </li>
         </ul>
 
         <div

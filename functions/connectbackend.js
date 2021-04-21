@@ -1,6 +1,10 @@
 import { URI } from '../config'
-import { getLocalStorage, setLocalStorage } from "./index"
+import { getLocalStorage, setLocalStorage, removeLocalStorage } from "./index"
 import { CODE_HTTP } from "./code"
+export const exitSession = ()=>{
+    removeLocalStorage('tokenSession')
+    location.href = '/dashboard/employeer'
+}
 export const singin = async (body) => {
     return fetch(`${URI}/singin`,
         {
@@ -395,6 +399,26 @@ export const GetAllTicket = async (params) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(template)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+export const GetOneTicket = async (Nticket) => {
+
+    return fetch(`${URI}/ticket/code?id=${Nticket}`,
+        {
+            method: 'get', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
         .then((res) => res.json())
         .then((res) => {

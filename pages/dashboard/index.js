@@ -1,6 +1,17 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import Layout from "../../components/Dashboard/Layaout"
+import { setValuesDashboard } from "../../functions/dashboard"
 export default function Dashboard() {
+  const [Sales, setSales] = useState(0)
+  const [Client, setClient] = useState(0)
+  const [SalesOnline, setSalesOnline] = useState(0)
+  const [Invoiced, setInvoiced] = useState(0)
+  useEffect(async () => {
+    await setValuesDashboard(setSales,{ setSales, setClient, setSalesOnline, setInvoiced })
+
+  },[])
+  console.log(Sales)
   return (
     <>
       <Layout selectNav='dashboard'>
@@ -32,7 +43,7 @@ export default function Dashboard() {
                   <div className="font-semibold text-gray-600 dark:text-gray-100 text-md">
                     Clientes
                   </div>
-                  <div className="text-lg font-bold">2</div>
+                  <div className="text-lg font-bold">{Client}</div>
                 </div>
               </a>
             </div>
@@ -58,7 +69,7 @@ export default function Dashboard() {
                   <div className="font-semibold text-gray-600 dark:text-gray-100 text-md">
                     Ventas Físicas
                   </div>
-                  <div className="text-lg font-bold">1</div>
+                  <div className="text-lg font-bold">{Sales}</div>
                 </div>
               </div>
             </div>
@@ -82,9 +93,9 @@ export default function Dashboard() {
                 </div>
                 <div className="flex flex-col flex-grow ml-4">
                   <div className="font-semibold text-gray-600 dark:text-gray-100 text-md">
-                    Venta TOODU
+                    Venta Online
                   </div>
-                  <div className="text-lg font-bold">190</div>
+                  <div className="text-lg font-bold">{SalesOnline}</div>
                 </div>
               </div>
             </div>
@@ -108,9 +119,9 @@ export default function Dashboard() {
                 </div>
                 <div className="flex flex-col flex-grow ml-4">
                   <div className="font-semibold text-gray-600 dark:text-gray-100 text-md">
-                    Dinero
+                    Facturado
                   </div>
-                  <div className="text-lg font-bold">$ 32k</div>
+                  <div className="text-lg font-bold">{Invoiced}</div>
                 </div>
               </div>
             </div>

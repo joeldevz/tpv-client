@@ -15,7 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { GetAllTicket } from "../../functions/connectbackend"
-import { GpsNotFixedSharp } from '@material-ui/icons';
+import PrintIcon from '@material-ui/icons/Print';
+import { ButtonGroup, Button } from '@material-ui/core'
+import { Sendprinter, GetOneTicket } from "../../functions/connectbackend"
+import { CODE_HTTP } from '../../functions/code';
+
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
@@ -36,7 +40,7 @@ function createData(NTicket, document, NProducts, iva, total, history) {
 }
 
 function Row(props) {
-    const { row } = props;
+    const { row, printer } = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 
@@ -55,6 +59,10 @@ function Row(props) {
                 <TableCell align="right">{row.NProducts}</TableCell>
                 <TableCell align="right">{row.iva} %</TableCell>
                 <TableCell align="right">{row.total} €</TableCell>
+                <TableCell align="center">
+                    <ButtonGroup variant="contained" aria-label="contained primary button group">
+                        <Button color="primary" onClick={() => printer(row.NTicket)}><PrintIcon /></Button>
+                    </ButtonGroup> </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -73,6 +81,7 @@ function Row(props) {
                                         <TableCell align="right">Precio Unidad </TableCell>
 
                                         <TableCell align="right">Total Precio (€)</TableCell>
+
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -105,17 +114,19 @@ function Row(props) {
 
 export function CollapsibleTableTicket({ }) {
     const [rows, setRows] = useState([])
+    const [ticket, setTicket] = useState([])
     useEffect(async () => {
         const allTicket = await GetAllTicket()
         if (allTicket.statusCode === 200) {
+            setTicket(data)
             const data = allTicket.data.map((product) => {
-/*                 [
-                    { date: '2020-01-05', name: '11091700', count: 3, iva: 21, price: 1 },
-                    { date: '2020-01-02', name: 'Anonymous', count: 1, iva: 10, price: 1 },
-                ] */
+                /*                 [
+                                    { date: '2020-01-05', name: '11091700', count: 3, iva: 21, price: 1 },
+                                    { date: '2020-01-02', name: 'Anonymous', count: 1, iva: 10, price: 1 },
+                                ] */
                 const history = []
                 for (const product of product.products) {
-                    history.push({ date: product.createdAt, name: product.name, count: product.count, iva:product.iva, price:product.price })
+                    history.push({ date: product.createdAt, name: product.name, count: product.count, iva: product.iva, price: product.price })
                 }
 
                 return createData(
@@ -129,8 +140,14 @@ export function CollapsibleTableTicket({ }) {
             setRows(data)
         }
     }, [])
-
-
+    const printer = async (code) => {
+        const DataTicket = await GetOneTicket(code)
+        if (DataTicket.statusCode !== CODE_HTTP.SUCCESS) {
+            alert("Error al Buscar Ticket")
+        }
+        console.log(DataTicket.data)
+        await Sendprinter(DataTicket.data)
+    }
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -142,11 +159,12 @@ export function CollapsibleTableTicket({ }) {
                         <TableCell align="right">Nº Productos</TableCell>
                         <TableCell align="right">IVA (%)</TableCell>
                         <TableCell align="right">Total</TableCell>
+                        <TableCell align="center">Acción</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <Row key={row.NTicket} row={row} />
+                        <Row key={row.NTicket} printer={printer} row={row} />
                     ))}
                 </TableBody>
             </Table>

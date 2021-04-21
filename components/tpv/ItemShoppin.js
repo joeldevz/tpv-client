@@ -17,7 +17,7 @@ const ItemShoppinCart = ({ Listproducts, setProducts }) => {
                         <div class="relative flex items-center space-x-4 p-3">
                             <div
                                 className="flex items-center justify-center  flex-shrink-0 w-12 h-12 text-white bg-blue-600 rounded-xl">
-                                <Icon icon={product.category} />
+                                <Icon icon={product.category|| 'pc'} />
                             </div>
                             <div class="flex-grow ">
                                 <div class="font-semibold text-gray-700">

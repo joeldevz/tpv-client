@@ -27,11 +27,7 @@ export default function employeer() {
     const [Pin, setPin] = useState({ code1: '', code2: '', code3: '', code4: '' })
     const [error, setError] = useState('')
     const [users, setUsers] = useState([
-        {
-            nickname: 'christopher',
-            avatar: 0,
-            rol: 'Admin',
-        },
+
     ])
     const [loginUser, setLoginUser] = useState({ nickname: '', pin: '' })
     const setNickname = (nickname) => {
@@ -102,10 +98,10 @@ export default function employeer() {
                                     <div className="mt-2 w-full">
                                         <div className="m-auto p-5">
                                             <div className="grid grid-cols-4">
-                                                <input name="code1" value={Pin.code1} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 " type="password" min="0" step="1" autoFocus="autofocus" />
-                                                <input name="code2" value={Pin.code2} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 " type="password" min="0" step="1" />
-                                                <input name="code3" value={Pin.code3} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 " type="password" min="0" step="1" />
-                                                <input name="code4" value={Pin.code4} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 " type="password" min="0" step="1" />
+                                                <input name="code1" value={Pin.code1} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 border border-black " type="password" min="0" step="1" autoFocus="autofocus" />
+                                                <input name="code2" value={Pin.code2} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 border border-black" type="password" min="0" step="1" />
+                                                <input name="code3" value={Pin.code3} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 border border-black" type="password" min="0" step="1" />
+                                                <input name="code4" value={Pin.code4} onChange={changeinput} className=" shadow-md w-16 h-20 m-2 rounded leading-3 text-center text-2xl focus:border-indigo-500 border border-black" type="password" min="0" step="1" />
                                             </div>
                                         </div>
                                     </div>
