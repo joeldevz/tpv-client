@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react'
 import Layout from "../../components/Dashboard/Layaout"
 import { setValuesDashboard } from "../../functions/dashboard"
 import { Temperature } from "../../components/app/Widget"
-import { CardIconLabel } from "../../components/app"
+import { CardIconLabel, CardShopIconLabel, CardAdd } from "../../components/app"
 import { Grid } from '@material-ui/core'
 import { PeopleOutline } from '@material-ui/icons';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 export default function Dashboard() {
   const [Sales, setSales] = useState(0)
   const [Client, setClient] = useState(0)
@@ -137,8 +139,8 @@ export default function Dashboard() {
         </div>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <div className="p-2  rounded-md">
-              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><StorefrontIcon />TPV</h2>
+            <div className="p-2">
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><ShoppingBasketIcon  className="mr-3" />TPV</h2>
 
               <Grid container spacing={3}>
 
@@ -156,10 +158,19 @@ export default function Dashboard() {
           </Grid>
 
           <Grid item xs={12} md={3}>
-            hola
+            <div className="p-2">
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><LocalMallIcon className="mr-3" />Pedidos</h2>
+
+
+              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label={`NUEVO PEDIDO - TOODU`} />
+              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - T.Online" />
+
+              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - TOODU" />
+              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - T.Online" />
+            </div>
           </Grid>
           <Grid item xs={12} md={3}>
-            hola
+            <CardAdd  />
           </Grid>
         </Grid>
       </Layout>
