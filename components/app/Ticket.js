@@ -62,7 +62,8 @@ function Row(props) {
                 <TableCell align="center">
                     <ButtonGroup variant="contained" aria-label="contained primary button group">
                         <Button color="primary" onClick={() => printer(row.NTicket)}><PrintIcon /></Button>
-                    </ButtonGroup> </TableCell>
+                    </ButtonGroup>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -114,11 +115,9 @@ function Row(props) {
 
 export function CollapsibleTableTicket({ }) {
     const [rows, setRows] = useState([])
-    const [ticket, setTicket] = useState([])
     useEffect(async () => {
         const allTicket = await GetAllTicket()
         if (allTicket.statusCode === 200) {
-            setTicket(data)
             const data = allTicket.data.map((product) => {
                 /*                 [
                                     { date: '2020-01-05', name: '11091700', count: 3, iva: 21, price: 1 },

@@ -6,6 +6,7 @@ import { getLocalStorage } from "../../functions/index"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import ExtensionIcon from '@material-ui/icons/Extension';
 export default function Nav({ selectNav }) {
 
     const [nav, setNav] = useState({
@@ -13,7 +14,8 @@ export default function Nav({ selectNav }) {
         tpv: false,
         client: false,
         products: false,
-        ticket: false
+        ticket: false,
+        config: false
 
     })
     const [idShop, setIdShop] = useState(0)
@@ -32,20 +34,20 @@ export default function Nav({ selectNav }) {
             </p>
         </div>
 
-        <ul className="mt-2 text-gray-700 dark:text-gray-400 capitalize">
+        <ul className="my-auto text-gray-700 dark:text-gray-400 capitalize">
 
             <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.dashboard ? 'text-blue-600' : 'hover:text-blue-600'}`}>
                 <Link href="/dashboard">
                     <a className=" flex flex-col items-center ">
                         <Icon icon="dashboard" bg={`${nav.dashboard ? 'text-blue-600' : ''}`} />
-                        <span className="text-xs mt-2">Dashboard</span>
+                        <span className="text-xs mt-2 font-semibold">Dashboard</span>
                     </a>
                 </Link>
             </li>
             <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.tpv ? 'text-blue-600' : 'hover:text-blue-600'}`}>
                 <Link href="/tpv">
                     <a className=" flex flex-col items-center ">
-                        <StorefrontIcon  bg={`${nav.tpv ? 'text-blue-600' : ''}`}/>
+                        <StorefrontIcon bg={`${nav.tpv ? 'text-blue-600' : ''}`} />
                         <span className="text-xs mt-2 font-semibold">TPV</span>
                     </a>
                 </Link>
@@ -54,7 +56,7 @@ export default function Nav({ selectNav }) {
                 <Link href="/dashboard/client">
                     <a className=" flex flex-col items-center">
                         <Icon icon="people" />
-                        <span className="text-xs mt-2">Clientes</span>
+                        <span className="text-xs mt-2 font-semibold">Clientes</span>
                     </a>
                 </Link>
             </li>
@@ -62,45 +64,41 @@ export default function Nav({ selectNav }) {
                 <Link href="/dashboard/products">
                     <a className=" flex flex-col items-center">
                         <Icon icon="cartPlus" />
-                        <span className="text-xs mt-2">Productos</span>
+                        <span className="text-xs mt-2 font-semibold">Productos</span>
                     </a>
                 </Link>
             </li>
             <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.ticket ? 'text-blue-600' : 'hover:text-blue-600'}`}>
                 <Link href="/dashboard/ticket">
                     <a className=" flex flex-col items-center">
-                        <ConfirmationNumberIcon className="fill-current h-5 w-5"/>
-                        <span className="text-xs mt-2">Ticket</span>
+                        <ConfirmationNumberIcon className="fill-current h-5 w-5" />
+                        <span className="text-xs mt-2 font-semibold">Ticket</span>
                     </a>
                 </Link>
             </li>
-
-            <li className="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300 rounded-lg" >
+            <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.extensions ? 'text-blue-600' : 'hover:text-blue-600'}`} >
+                <Link href="/config">
+                    <a className=" flex flex-col items-center">
+                        <ExtensionIcon />
+                        <span className="text-xs mt-2 font-semibold">Extension</span>
+                    </a>
+                </Link>
+            </li>
+            <li className={`mt-3 p-2  dark:text-blue-300 rounded-lg ${nav.config ? 'text-blue-600' : 'hover:text-blue-600'}`} >
                 <Link href="/config">
                     <a className=" flex flex-col items-center">
                         <Icon icon="setting" />
-                        <span className="text-xs mt-2">Configuración</span>
+                        <span className="text-xs mt-2 font-semibold">Configuración</span>
                     </a>
                 </Link>
             </li>
-            <li onClick={exitSession} className="mt-3 p-2 hover:text-red-600 cursor-pointer dark-hover:text-blue-300 rounded-lg" >
-                <div className=" flex flex-col items-center">
-                    <ExitToAppIcon className="fill-current h-5 w-5" />
-                    <span className="text-xs text-center mt-2">Cambiar Usuario</span>
-                </div>
-            </li>
         </ul>
 
-        <div
-            className="mt-auto flex items-center p-2 text-blue-600 bg-purple-200
+        <div onClick={exitSession}
+            className="mt-auto flex items-center cursor-pointer p-2 text-blue-600 bg-purple-200
 dark:text-blue-500 rounded-full">
             <div >
-                <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
-                    <path
-                        d="M12 1c-5 0-9 4-9 9v7a3 3 0 003 3h3v-8H5v-2a7 7 0 017-7
-            7 7 0 017 7v2h-4v8h4v1h-7v2h6a3 3 0
-            003-3V10c0-5-4.03-9-9-9z"></path>
-                </svg>
+                <ExitToAppIcon className="fill-current h-5 w-5" />
             </div>
         </div>
     </nav >

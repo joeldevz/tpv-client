@@ -1,16 +1,18 @@
 import { CODE_HTTP } from "./code"
 import { GetAllTicket } from "./connectbackend"
-export const setValuesDashboard = async (setSales, ObjectSetValues) => {
+export const setValuesDashboard = async (ObjectSetValues) => {
     const Sales = 0;
-    const Invoiced = 0
-    const { setClient, setSalesOnline, setInvoiced } = ObjectSetValues
+    let Invoiced = 0
+    const { setSales, setClient, setSalesOnline, setInvoiced } = ObjectSetValues
     const AllTicket = await GetAllTicket()
     if (AllTicket.statusCode !== CODE_HTTP.SUCCESS) {
         return false
     }
     setSales(AllTicket.data.length)
+    AllTicket.data.forEach((ticket) => {
+        Invoiced = Invoiced + ticket.priceAll
+    })
 
-    /*     AllTicket.data.forEach((ticket) => {
-    
-        }) */
+    console.log(Invoiced)
+    setInvoiced(Invoiced)
 }

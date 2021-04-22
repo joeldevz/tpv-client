@@ -2,21 +2,29 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Layout from "../../components/Dashboard/Layaout"
 import { setValuesDashboard } from "../../functions/dashboard"
+import { Temperature } from "../../components/app/Widget"
+import { CardIconLabel } from "../../components/app"
+import { Grid } from '@material-ui/core'
+import { PeopleOutline } from '@material-ui/icons';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import DescriptionIcon from '@material-ui/icons/Description';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 export default function Dashboard() {
   const [Sales, setSales] = useState(0)
   const [Client, setClient] = useState(0)
   const [SalesOnline, setSalesOnline] = useState(0)
   const [Invoiced, setInvoiced] = useState(0)
   useEffect(async () => {
-    await setValuesDashboard(setSales,{ setSales, setClient, setSalesOnline, setInvoiced })
+    await setValuesDashboard({ setSales, setClient, setSalesOnline, setInvoiced })
 
-  },[])
+  }, [])
   console.log(Sales)
   return (
     <>
       <Layout selectNav='dashboard'>
-
-        <div className="w-full p-4 ">
+        <Temperature />
+        <div className="w-full py-4 ">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 sm:col-span-6 md:col-span-3  transition    duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-100">
               <a
@@ -121,12 +129,39 @@ export default function Dashboard() {
                   <div className="font-semibold text-gray-600 dark:text-gray-100 text-md">
                     Facturado
                   </div>
-                  <div className="text-lg font-bold">{Invoiced}</div>
+                  <div className="text-lg font-bold">{Invoiced} €</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <div className="p-2  rounded-md">
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><StorefrontIcon />TPV</h2>
+
+              <Grid container spacing={3}>
+
+                <Grid item xs={12} md={6} >
+                  <CardIconLabel icon={<PeopleOutline />} uri="/dashboard/client" color="blue" label="Clientes" />
+                  <CardIconLabel icon={<LocalOfferIcon />} uri="/dashboard/products" color="blue" label="Productos" />
+                </Grid>
+                <Grid item xs={12} md={6} >
+                  <CardIconLabel icon={<ReceiptIcon />} uri="/dashboard/ticket" color="green" label="Tickets" />
+                  <CardIconLabel icon={<DescriptionIcon />} color="green" label="Facturas" />
+                </Grid>
+              </Grid>
+            </div>
+
+          </Grid>
+
+          <Grid item xs={12} md={3}>
+            hola
+          </Grid>
+          <Grid item xs={12} md={3}>
+            hola
+          </Grid>
+        </Grid>
       </Layout>
     </>
   )
