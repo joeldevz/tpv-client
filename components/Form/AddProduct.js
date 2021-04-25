@@ -54,8 +54,9 @@ export const AddProduct = ({ setProducts, products }) => {
                     return errors
 
                 }}
-                onSubmit={(values, { setSubmitting, }) => {
+                onSubmit={(values, { setSubmitting, setValues }) => {
                     setProducts([...products, { ...values, key: products.length }])
+                    setValues({ code: '', title: '', count: 0, price: 0, category: 'inbox', iva: 21 })
                     setSubmitting(false)
                 }}
 
@@ -67,7 +68,7 @@ export const AddProduct = ({ setProducts, products }) => {
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    isSubmitting, setStatus,setValues
+                    isSubmitting, setStatus, setValues
                     /* and other goodies */
                 }) => {
                     const searchProduct = async (e) => {

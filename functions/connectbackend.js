@@ -1,7 +1,7 @@
 import { URI } from '../config'
 import { getLocalStorage, setLocalStorage, removeLocalStorage } from "./index"
 import { CODE_HTTP } from "./code"
-export const exitSession = ()=>{
+export const exitSession = () => {
     removeLocalStorage('tokenSession')
     location.href = '/dashboard/employeer'
 }
@@ -120,14 +120,14 @@ export const Sendprinter = async (params) => {
         '4': setIva4
     }
     function formatoFecha(fecha, formato) {
-    const map = {
-        dd: fecha.getDate(),
-        mm: fecha.getMonth() + 1,
-        yy: fecha.getFullYear().toString().slice(-2),
-        yyyy: fecha.getFullYear()
+        const map = {
+            dd: fecha.getDate(),
+            mm: fecha.getMonth() + 1,
+            yy: fecha.getFullYear().toString().slice(-2),
+            yyyy: fecha.getFullYear()
+        }
+        return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
     }
-    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
-}
     let option = {
         business: {
             name: 'TECNOSERVICES',
@@ -135,8 +135,8 @@ export const Sendprinter = async (params) => {
             url: "https://tecnoservices.es",
             info: [
                 { text: "Gerardo Diego,8 local 8,", align: "CENTER", width: 1, bold: false },
-                { text: "28806 Alcalá de Henares", align: "CENTER", width: 1, bold:false },
-               /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
+                { text: "28806 Alcalá de Henares", align: "CENTER", width: 1, bold: false },
+                /*  { text: "NIE: 0000000T", align: "CENTER", width: 1, bold: true }, */
                 { text: `FECHA: ${formatoFecha(new Date, 'dd/mm/yyyy')}`, align: "CENTER", width: 1, bold: false },
                 { text: `Atendido ${getLocalStorage('User')}`, align: "CENTER", width: 1, bold: false },
             ],
@@ -173,7 +173,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-21%", align: "RIGHT", width: 0.25 },
-                { text: iva21 +'€', align: "RIGHT", width: 0.25 },
+                { text: iva21 + '€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva10 > 0) {
@@ -181,7 +181,7 @@ export const Sendprinter = async (params) => {
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "", align: "LEFT", width: 0.25 },
                 { text: "IVA-10%", align: "RIGHT", width: 0.25 },
-                { text: iva10 +'€', align: "RIGHT", width: 0.25 },
+                { text: iva10 + '€', align: "RIGHT", width: 0.25 },
             )
         }
         if (iva4 > 0) {
@@ -233,7 +233,7 @@ export const OpenBox = async () => {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-                body: JSON.stringify(option)
+            body: JSON.stringify(option)
 
         })
         .then((res) => res.json())
@@ -417,6 +417,26 @@ export const GetOneTicket = async (Nticket) => {
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+export const GetAllShop = async () => {
+
+    return fetch(`${URI}/shop/all`,
+        {
+            method: 'get', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('token')}`
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         })

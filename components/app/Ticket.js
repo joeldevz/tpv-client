@@ -118,22 +118,22 @@ export function CollapsibleTableTicket({ }) {
     useEffect(async () => {
         const allTicket = await GetAllTicket()
         if (allTicket.statusCode === 200) {
-            const data = allTicket.data.map((product) => {
+            const data = allTicket.data.map((ticket) => {
                 /*                 [
                                     { date: '2020-01-05', name: '11091700', count: 3, iva: 21, price: 1 },
                                     { date: '2020-01-02', name: 'Anonymous', count: 1, iva: 10, price: 1 },
                                 ] */
                 const history = []
-                for (const product of product.products) {
-                    history.push({ date: product.createdAt, name: product.name, count: product.count, iva: product.iva, price: product.price })
+                for (const product of ticket.products) {
+                    history.push({ date: ticket.createdAt, name: product.name, count: product.count, iva: product.iva, price: product.price })
                 }
 
                 return createData(
-                    product.Nticket,
-                    product.client.document,
-                    product.products.length,
+                    ticket.Nticket,
+                    ticket.client.document,
+                    ticket.products.length,
                     0,
-                    product.priceAll,
+                    ticket.priceAll,
                     history)
             })
             setRows(data)

@@ -1,18 +1,37 @@
 import { useEffect, useState } from 'react'
 import { DiccionaryAvatar } from "../../config"
-import { getAllEmployeer, LoginEmployer } from "../../functions/connectbackend"
+import { getAllEmployeer, LoginEmployer, GetAllShop } from "../../functions/connectbackend"
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from "../../functions/index"
 import { AlertDialogSlide } from "../../components/app"
 import { errorAuth } from "../../functions/menssage"
 import { CODE_HTTP } from '../../functions/code'
-export default function employeer() {
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
+export default function employeer() {
+    const useStyles = makeStyles((theme) => ({
+        formControl: {
+            margin: theme.spacing(1),
+            minWidth: "100%",
+        },
+        selectEmpty: {
+            marginTop: theme.spacing(2),
+        },
+    }));
+    const [listShop, setListShop] = useState([])
+    const [loginUser, setLoginUser] = useState({ nickname: '', pin: '', id_Shop: '' })
+
+    const classes = useStyles();
     useEffect(async () => {
         if (!getLocalStorage('token')) {
             removeLocalStorage('token')
             removeLocalStorage('tokenSession')
             location.href = '/auth'
         }
+        const ListShop = await GetAllShop()
         const arrayEmployer = await getAllEmployeer(getLocalStorage('token'))
         if (arrayEmployer.statusCode === CODE_HTTP.NOT_FOUND) {
             return location.href = './completeregister'
@@ -21,7 +40,8 @@ export default function employeer() {
             return location.href = './completeregister'
         }
         setUsers(arrayEmployer.data)
-
+        setListShop(ListShop.data)
+        setLoginUser({ ...loginUser, id_Shop: getLocalStorage('id_Shop') || undefined })
     }, [])
     const [modal, setModal] = useState(false)
     const [Pin, setPin] = useState({ code1: '', code2: '', code3: '', code4: '' })
@@ -29,13 +49,15 @@ export default function employeer() {
     const [users, setUsers] = useState([
 
     ])
-    const [loginUser, setLoginUser] = useState({ nickname: '', pin: '' })
     const setNickname = (nickname) => {
-        setLoginUser({ nickname, pin: '' })
+        setLoginUser({ ...loginUser, nickname, pin: '' })
         setModal(!modal)
     }
+    const setIdShop = (id_Shop) => {
+        setLoginUser({ ...loginUser, id_Shop: id_Shop.target.value })
+    }
     const closeLoggin = () => {
-        setLoginUser({ nickname: '' })
+        setLoginUser({ ...loginUser, nickname: '', pin: '' })
         setModal(!modal)
         setPin({ code1: '', code2: '', code3: '', code4: '' })
 
@@ -58,6 +80,7 @@ export default function employeer() {
     useEffect(async () => {
         if (loginUser.nickname.length <= 0 || loginUser.nickname === undefined) return
         if (loginUser.pin.length < 4) return
+        if (loginUser.id_Shop === '' || loginUser.id_Shop === undefined) return
         const dataEmployer = await LoginEmployer(loginUser)
         if (dataEmployer.statusCode !== CODE_HTTP.SUCCESS) {
             errorAuth(401, setError)
@@ -65,7 +88,7 @@ export default function employeer() {
             setLoginUser({ ...loginUser, pin: '' })
         } else {
             setLocalStorage('tokenSession', dataEmployer.data)
-            setLocalStorage('id_Shop', 'D20211')
+            setLocalStorage('id_Shop', loginUser.id_Shop)
             setLocalStorage('User', loginUser.nickname)
             location.href = "../dashboard"
         }
@@ -93,6 +116,22 @@ export default function employeer() {
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                    <FormControl variant="outlined" className={classes.formControl}>
+                                        <InputLabel id="demo-simple-select-outlined-label">Selecciona Tienda</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            value={loginUser.id_Shop}
+                                            onChange={setIdShop}
+                                            label="Selecciona Tienda"
+                                        >
+                                            {
+                                                listShop.map((shop) => (
+                                                    <MenuItem key={shop.id_Shop} value={shop.id_Shop}>{shop.name}</MenuItem>
+                                                ))
+                                            }
+                                        </Select>
+                                    </FormControl>
                                     <h3 className="text-lg text-center leading-6 font-medium text-gray-900" id="modal-headline">
                                         Introduzca Pin</h3>
                                     <div className="mt-2 w-full">
