@@ -12,6 +12,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 export default function Dashboard() {
   const [Sales, setSales] = useState(0)
   const [Client, setClient] = useState(0)
@@ -140,17 +141,20 @@ export default function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <div className="p-2">
-              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><ShoppingBasketIcon  className="mr-3" />TPV</h2>
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><ShoppingBasketIcon className="mr-3" />TPV</h2>
 
               <Grid container spacing={3}>
 
                 <Grid item xs={12} md={6} >
                   <CardIconLabel icon={<PeopleOutline />} uri="/dashboard/client" color="blue" label="Clientes" />
                   <CardIconLabel icon={<LocalOfferIcon />} uri="/dashboard/products" color="blue" label="Productos" />
+                  <CardIconLabel icon={<AccountBalanceWalletIcon />} uri="/dashboard/box" color="red" label="Cierre de Caja" />
+
                 </Grid>
                 <Grid item xs={12} md={6} >
                   <CardIconLabel icon={<ReceiptIcon />} uri="/dashboard/ticket" color="green" label="Tickets" />
                   <CardIconLabel icon={<DescriptionIcon />} color="green" label="Facturas" />
+                  <CardIconLabel icon={<AccountBalanceWalletIcon />} uri="/dashboard/box/history" color="red" label="Historia de Caja" />
                 </Grid>
               </Grid>
             </div>
@@ -170,7 +174,7 @@ export default function Dashboard() {
             </div>
           </Grid>
           <Grid item xs={12} md={3}>
-            <CardAdd  />
+            <CardAdd />
           </Grid>
         </Grid>
       </Layout>

@@ -24,7 +24,7 @@ const ItemShoppinCart = ({ Listproducts, setProducts }) => {
                                     {product.name}
                                 </div>
                                 <div class="text-sm text-gray-500">
-                                    IVA {product.iva}
+                                    IVA {product.iva} | CODE {product.code}
                                 </div>
                             </div>
 

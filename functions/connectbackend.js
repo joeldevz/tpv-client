@@ -263,6 +263,25 @@ export const GetAllProductShop = async () => {
             console.log(err)
         })
 }
+export const GetProductByName = async (name) => {
+    return fetch(`${URI}/product/search?name=${name}`,
+        {
+            method: 'get', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${getLocalStorage('tokenSession')}`
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
 export const GetProductShop = async (code) => {
     return fetch(`${URI}/product/code?id=${code}`,
         {
