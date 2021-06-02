@@ -154,7 +154,7 @@ export const Sendprinter = async (params) => {
         if (!product.label) {
             labelname =  product.name
             if (labelname.length > 18) {
-                labelname = product.title.slice(0, 18) + '..'
+                labelname = product.name.slice(0, 18) + '..'
             }
         } else {
             labelname = product.label
