@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import moment from "moment"
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -28,8 +28,9 @@ const useRowStyles = makeStyles({
     },
 });
 
-function createData(NTicket, document, NProducts, iva, total, history) {
+function createData(NTicket, document, NProducts, iva, total, history, date) {
     return {
+        date,
         NTicket,
         document,
         NProducts,
@@ -71,7 +72,7 @@ function Row(props) {
                         <Box margin={1}>
                             <Typography variant="h6" gutterBottom component="div">
                                 History
-              </Typography>
+                            </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
@@ -113,9 +114,10 @@ function Row(props) {
 
 
 
-export function CollapsibleTableTicket({ }) {
+export function CollapsibleTableTicket() {
     const [rows, setRows] = useState([])
-    useEffect(async () => {
+    const [moth, setMoth] = useState("");
+    const GetAndFormat = async () => {
         const allTicket = await GetAllTicket()
         if (allTicket.statusCode === 200) {
             const data = allTicket.data.map((ticket) => {
@@ -134,21 +136,57 @@ export function CollapsibleTableTicket({ }) {
                     ticket.products.length,
                     0,
                     ticket.priceAll,
-                    history)
+                    history,
+                    ticket.createdAt)
             })
-            setRows(data)
+            return data
         }
-    }, [])
+    }
+
     const printer = async (code) => {
         const DataTicket = await GetOneTicket(code)
         if (DataTicket.statusCode !== CODE_HTTP.SUCCESS) {
             alert("Error al Buscar Ticket")
         }
-        console.log(DataTicket.data)
         await Sendprinter(DataTicket.data)
     }
+    useEffect(async () => {
+        const _rows = await GetAndFormat();
+        if (moth === "") return setRows(_rows)
+        const _rowsFilter = []
+        _rows.map((item) => {
+            const dateTicket = moment(item.date.split("T")[0])
+            const Date = moment(moth)
+            if (moment(dateTicket).isSameOrAfter(Date))
+                _rowsFilter.push(item)
+        })
+        console.log("filter", _rowsFilter)
+        setRows(_rowsFilter)
+    }, [moth])
+    const change = (v) => {
+        console.log(v.target.value);
+        setMoth(v.target.value)
+    }
+
     return (
         <TableContainer component={Paper}>
+            Seleciona un mes :
+             <br/>
+            <select onChange={change}>
+                <option value="">Nada</option>
+                <option value="2021-01-01">Enero 2020</option>
+                <option value="2021-02-01">Febrero 2020</option>
+                <option value="2021-03-01">Marzo 2021</option>
+                <option value="2021-04-01">Abril 2021</option>
+                <option value="2021-05-01">Mayo 2021</option>
+                <option value="2021-06-01">Junio 2021</option>
+                <option value="2021-07-01">Julio 2021</option>
+                <option value="2021-08-01">Agosto 2021</option>
+                <option value="2021-09-01">Septiembre 2021</option>
+                <option value="2021-10-01">Octubre 2021</option>
+                <option value="2021-11-01">Noviembre 2021</option>
+                <option value="2021-12-01">Diciemnre 2021</option>
+            </select>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>

@@ -1,6 +1,6 @@
 export const Temperature = () => {
     return (
-        <div class="bg-grey-lightest mx-auto shadow rounded pb-4 bg-cover" style={{ "color": "#606F7B", "background-color": "rgb(165, 182, 198)", "background-image": "url('https://68.media.tumblr.com/f6a4004f3092b0d664daeabb95d5d195/tumblr_oduyciOJNb1uhjffgo1_500.gif')" }}>
+        <div class="bg-grey-lightest mx-auto shadow rounded pb-4 bg-cover" style={{ "color": "#606F7B", "background-color": "rgb(165, 182, 198)", "backgroundImage": "url('https://68.media.tumblr.com/f6a4004f3092b0d664daeabb95d5d195/tumblr_oduyciOJNb1uhjffgo1_500.gif')" }}>
             < div class="mt-2 p-4 border-b border-grey-light  text-center" >
                 <span class="text-4xl font-thin">Mountain View, US</span>
                 <span class="hidden sm:inline-block align-bottom text-xs">( 94041 )</span>
