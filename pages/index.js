@@ -147,7 +147,7 @@ export default function Register() {
                 <span>
                   Copyright © 2021-2023
                   <a
-                    href="https://codepen.io/uidesignhub"
+                    href="https://umibu.io/"
                     rel=""
                     target="_blank"
                     title="Codepen aji"
