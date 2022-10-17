@@ -1,31 +1,39 @@
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import Layout from "../../components/Dashboard/Layaout"
-import { setValuesDashboard } from "../../functions/dashboard"
-import { Temperature } from "../../components/app/Widget"
-import { CardIconLabel, CardShopIconLabel, CardAdd } from "../../components/app"
-import { Grid } from '@material-ui/core'
-import { PeopleOutline } from '@material-ui/icons';
-import StorefrontIcon from '@material-ui/icons/Storefront';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import DescriptionIcon from '@material-ui/icons/Description';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import Layout from "../../components/Dashboard/Layaout";
+import { setValuesDashboard } from "../../functions/dashboard";
+import { Temperature } from "../../components/app/Widget";
+import {
+  CardIconLabel,
+  CardShopIconLabel,
+  CardAdd,
+} from "../../components/app";
+import { Grid } from "@material-ui/core";
+import { PeopleOutline } from "@material-ui/icons";
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import ReceiptIcon from "@material-ui/icons/Receipt";
+import DescriptionIcon from "@material-ui/icons/Description";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 export default function Dashboard() {
-  const [Sales, setSales] = useState(0)
-  const [Client, setClient] = useState(0)
-  const [SalesOnline, setSalesOnline] = useState(0)
-  const [Invoiced, setInvoiced] = useState(0)
+  const [Sales, setSales] = useState(0);
+  const [Client, setClient] = useState(0);
+  const [SalesOnline, setSalesOnline] = useState(0);
+  const [Invoiced, setInvoiced] = useState(0);
   useEffect(async () => {
-    await setValuesDashboard({ setSales, setClient, setSalesOnline, setInvoiced })
-
-  }, [])
-  console.log(Sales)
+    await setValuesDashboard({
+      setSales,
+      setClient,
+      setSalesOnline,
+      setInvoiced,
+    });
+  }, []);
+  console.log(Sales);
   return (
     <>
-      <Layout selectNav='dashboard'>
+      <Layout selectNav="dashboard">
         <Temperature />
         <div className="w-full py-4 ">
           <div className="grid grid-cols-12 gap-4">
@@ -141,36 +149,62 @@ export default function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <div className="p-2">
-              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><ShoppingBasketIcon className="mr-3" />TPV</h2>
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2">
+                <ShoppingBasketIcon className="mr-3" />
+                TPV
+              </h2>
 
               <Grid container spacing={3}>
-
-                <Grid item xs={12} md={6} >
-                  <CardIconLabel icon={<PeopleOutline />} uri="/dashboard/client" color="blue" label="Clientes" />
-                  <CardIconLabel icon={<LocalOfferIcon />} uri="/dashboard/products" color="blue" label="Productos" />
-                  <CardIconLabel icon={<AccountBalanceWalletIcon />} uri="/dashboard/box" color="red" label="Cierre de Caja" />
-
+                <Grid item xs={12} md={6}>
+                  <CardIconLabel
+                    icon={<PeopleOutline />}
+                    uri="/dashboard/client"
+                    color="blue"
+                    label="Clientes"
+                  />
+                  <CardIconLabel
+                    icon={<LocalOfferIcon />}
+                    uri="/dashboard/products"
+                    color="blue"
+                    label="Productos"
+                  />
+                  <CardIconLabel
+                    icon={<AccountBalanceWalletIcon />}
+                    uri="/dashboard/box"
+                    color="red"
+                    label="Cierre de Caja"
+                  />
                 </Grid>
-                <Grid item xs={12} md={6} >
-                  <CardIconLabel icon={<ReceiptIcon />} uri="/dashboard/ticket" color="green" label="Tickets" />
-                  <CardIconLabel icon={<DescriptionIcon />} color="green" label="Facturas" />
-                  <CardIconLabel icon={<AccountBalanceWalletIcon />} uri="/dashboard/box/history" color="red" label="Historia de Caja" />
+                <Grid item xs={12} md={6}>
+                  <CardIconLabel
+                    icon={<ReceiptIcon />}
+                    uri="/dashboard/ticket"
+                    color="green"
+                    label="Tickets"
+                  />
+                  <CardIconLabel
+                    icon={<DescriptionIcon />}
+                    color="green"
+                    label="Facturas"
+                  />
+                  <CardIconLabel
+                    icon={<AccountBalanceWalletIcon />}
+                    uri="/dashboard/box/history"
+                    color="red"
+                    label="Historia de Caja"
+                  />
                 </Grid>
               </Grid>
             </div>
-
           </Grid>
 
           <Grid item xs={12} md={3}>
             <div className="p-2">
-              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2"><LocalMallIcon className="mr-3" />Pedidos</h2>
-
-
-              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label={`NUEVO PEDIDO - TOODU`} />
-              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - T.Online" />
-
-              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - TOODU" />
-              <CardShopIconLabel small='12:53 22/04/2021' icon={<LocalMallIcon />} uri="#" color="indigo" label="NUEVO PEDIDO - T.Online" />
+              <h2 className="m-2 font-bold text-center text-xl bg-white text-blue-900 rounded-md shadow-md p-2">
+                <LocalMallIcon className="mr-3" />
+                Pedidos
+              </h2>
+              <CardAdd />
             </div>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -179,5 +213,5 @@ export default function Dashboard() {
         </Grid>
       </Layout>
     </>
-  )
+  );
 }
