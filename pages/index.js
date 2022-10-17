@@ -165,7 +165,7 @@ export default function Register() {
           <div className="container p-5 mx-auto  flex items-center justify-between ">
             <div className="flex mr-auto">
               <a
-                href="https://codepen.io/uidesignhub"
+                href="https://umibu.io/"
                 target="_blank"
                 title="codepen aji"
                 className="text-center text-gray-700 focus:outline-none"
